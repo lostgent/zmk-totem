@@ -18,6 +18,7 @@
 #define NAV  1
 #define SYM  2
 #define ADJ  3
+#define COL  4
 
 &mt {
     quick-tap-ms = <100>;
@@ -34,6 +35,11 @@
             timeout-ms = <50>;
             key-positions = <0 1>;
             bindings = <&kp ESC>;
+        };
+
+        undo {
+            bindings = <&kp K_UNDO>;
+            key-positions = <21 22>;
         };
     };
 
@@ -74,6 +80,20 @@
             tapping-term-ms = <175>;
             flavor = "tap-preferred";
         };
+
+        layerbackswap: layerbackswap {
+            compatible = "zmk,behavior-tap-dance";
+            label = "LAYERBACKSWAP";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_SHIFT>, <&to 0>;
+        };
+
+        layerfrontswap: layerfrontswap {
+            compatible = "zmk,behavior-tap-dance";
+            label = "LAYERFRONTSWAP";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_SHIFT>, <&to 4>;
+        };
     };
 
     keymap {
@@ -98,10 +118,10 @@
             //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
 
             bindings = <
-                &kp Q             &kp W           &kp E               &kp R           &kp T        &kp Y      &kp U            &kp I                &kp O            &kp P
-                &hs LEFT_SHIFT A  &hm LEFT_ALT S  &hm LEFT_CONTROL D  &hm LEFT_GUI F  &kp G        &kp H      &hm RIGHT_GUI J  &hm RIGHT_CONTROL K  &hm RIGHT_ALT L  &hs RIGHT_SHIFT APOSTROPHE
-&kp LEFT_SHIFT  &kp Z             &kp X           &kp C               &kp V           &kp B        &kp N      &kp M            &kp COMMA            &kp DOT          &kp FLSH               &kp BACKSLASH
-                                                  &kp DELETE          &lt 2 TAB       &kp SPACE    &kp ENTER  &lt 2 BACKSPACE  &lt 3 C_MUTE
+                 &kp Q             &kp W           &kp E               &kp R           &kp T        &kp Y      &kp U            &kp I                &kp O            &kp P
+                 &hs LEFT_SHIFT A  &hm LEFT_ALT S  &hm LEFT_CONTROL D  &hm LEFT_GUI F  &kp G        &kp H      &hm RIGHT_GUI J  &hm RIGHT_CONTROL K  &hm RIGHT_ALT L  &hs RIGHT_SHIFT APOSTROPHE
+&layerfrontswap  &kp Z             &kp X           &kp C               &kp V           &kp B        &kp N      &kp M            &kp COMMA            &kp DOT          &kp FSLH                    &kp BACKSLASH
+                                                   &kp DELETE          &lt 2 TAB       &kp SPACE    &kp ENTER  &lt 1 BACKSPACE  &lt 3 C_MUTE
             >;
         };
 
@@ -180,6 +200,16 @@
         &bootloader  &trans  &trans  &trans      &bt BT_SEL 1    &kp C_VOL_UP      &kp F4  &kp F5  &kp F6  &bootloader
 &trans  &trans       &trans  &trans  &bt BT_CLR  &bt BT_SEL 2    &kp C_VOL_DN      &kp F1  &kp F2  &kp F3  &kp F12      &trans
                              &trans  &trans      &trans          &kp C_PLAY_PAUSE  &trans  &trans
+            >;
+        };
+
+        colemak_layer {
+            label = "COL";
+            bindings = <
+                &kp Q             &kp W           &kp F               &kp P           &kp B        &kp J      &kp L            &kp U                &kp Y            &kp APOSTROPHE
+                &hs LEFT_SHIFT A  &hm LEFT_ALT R  &hm LEFT_CONTROL S  &hm LEFT_GUI T  &kp G        &kp M      &hm RIGHT_GUI N  &hm RIGHT_CONTROL E  &hm RIGHT_ALT I  &hs RIGHT_SHIFT O
+&layerbackswap  &kp Z             &kp X           &kp C               &kp D           &kp V        &kp K      &kp H            &kp COMMA            &kp DOT          &kp FSLH           &kp BACKSLASH
+                                                  &kp DELETE          &lt 2 TAB       &kp SPACE    &kp ENTER  &lt 1 BACKSPACE  &lt 3 C_MUTE
             >;
         };
     };
